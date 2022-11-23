@@ -86,26 +86,52 @@ int main()
 {
     addressBookType BukuFarrel(0);
     BukuFarrel.sortTheBook();
-    BukuFarrel.printTheBook();
-    string namaBelakang;
-    cout << "ingin mencari info orang sesuai nama Belakangnya ? " << endl;
-    cin >> namaBelakang;
-    BukuFarrel.findLastNameInBook(namaBelakang);
-    cout << "Berikan Bulan : " << endl;
-    int bul;
-    cin >> bul;
-    BukuFarrel.findNameInGivenMonth(bul);
-    string last1, last2;
-    cin >> last1 >> last2;
-    BukuFarrel.printTheNameBetweenTwoLastNames(last1, last2);
-    int ax;
-    cout << "1.Family Member, 2. Friends, 3. Business" << endl;
-    cin >> ax;
-    string req;
-    if (ax == 1) req = "FamilyMember";
-    else if (ax == 2) req = "Friends";
-    else if (ax == 3) req = "Business";
-    BukuFarrel.yourRequest(req);
+    //BukuFarrel.printTheBook();
+    int testCase = 1;
+    while (testCase)
+    {
+        cout << "===================================================================" << endl;
+        cout << "1. Find someone data from their last name" << endl;
+        cout << "2. Find Someone with the same birth month" << endl;
+        cout << "3. Find someone whose last name is between two last names inputted" << endl;
+        cout << "4. Find some who is a Family Members, Friends, or Business Associates" << endl;
+        cout << "Input the things yoa are looking for : ";
+        cin >> testCase;
+        if (testCase == 1)
+        {
+            string namaBelakang;
+            cout << "Input the last name: ";
+            cin >> namaBelakang;
+            BukuFarrel.findLastNameInBook(namaBelakang);
+        }
+        else if (testCase == 2)
+        {
+            int bul;
+            cout << "Input the month in number : ";
+            cin >> bul;
+            BukuFarrel.findNameInGivenMonth(bul);
+        }
+        else if (testCase == 3)
+        {
+            string last1, last2;
+            cout << "Input two last names : ";
+            cin >> last1 >> last2;
+            BukuFarrel.printTheNameBetweenTwoLastNames(last1, last2);
+        }
+        else if (testCase == 4)
+        {
+            int ax;
+            string req;
+            cout << "1.Family Member, 2. Friends, 3. Business" << endl;
+            cin >> ax;
+            if (ax == 1) req = "FamilyMember";
+            else if (ax == 2) req = "Friends";
+            else if (ax == 3) req = "Business";
+            BukuFarrel.yourRequest(req);
+        }
+        cout << "Do you want out (Input 0 to exit) : ";
+        cin >> testCase;
+    }
 
     return 0;
 }
@@ -333,23 +359,14 @@ addressBookType::addressBookType(int ind)
     {
         string First, Last, streetAddress, city, state, ZIPcode, phoneNumber, classify;
         int bulan, hari, tahun;
-        //cout << "Input first name : ";
         cin >> First;
-        //cout << "Input last name : ";
         cin >> Last;
-        //cout << "Input street address : ";
         cin >> streetAddress;
-        //cout << "Input city : ";
         cin >> city;
-        //cout << "Input state : ";
         cin >> state;
-        //cout << "Input ZIP Code : ";
         cin >> ZIPcode;
-        //cout << "Input Phone Number : ";
         cin >> phoneNumber;
-        //cout << "Input Classify : ";
         cin >> classify;
-        //cout << "Input date of birth (mm/dd/yyyy) : ";
         cin >> bulan >> hari >> tahun;
         person.push_back(extPersonType(phoneNumber,classify,
         streetAddress, city, state, ZIPcode, First, 
