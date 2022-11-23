@@ -1,5 +1,3 @@
-//Jangan cuma dicopas tetapi dipahami logika pemrograman kalo binggung chat aja 088977772814
-//kodenya buat sendiri, kode ini buat bahan referensi aja
 #include <iostream>
 #include <string>
 #include <vector>
@@ -25,6 +23,7 @@ class dateType
         dateType(int bulan, int hari, int tahun);
         bool isLeapYear();
         void print() const;
+        int getMonth();
     private:
         int month;
         int day;
@@ -60,84 +59,27 @@ class extPersonType: public addressType, public personType, public dateType
             addressType(streetAddress, city, state, ZIPcode),
             personType(first, last),
             dateType(bulan, hari, tahun)
-        {
-            extPersonType::phoneNumber = phoneNumber;
-            extPersonType::classify = classify;
-        }
-
-        void printAllInformation()
-        {
-            personType::print();
-            addressType::print();
-            dateType::print();
-            cout << phoneNumber << endl;
-            cout << classify << endl;
-        }
+            {
+                extPersonType::phoneNumber = phoneNumber;
+                extPersonType::classify = classify;
+            }
+        string getPhoneNumber();
+        string getClasify();
+        void printAllInformation();
 };
 
-class addressBookType {
+class addressBookType 
+{
     public:
         vector <extPersonType> person;
         int index;
-        
-        addressBookType (int index)
-        {
-            addressBookType::index = index;
-            int sz;
-            //cout << "Jumlah keluarga" << endl;
-            cin >> sz;
-            for (int i = 0; i < sz; i++)
-            {
-                string First, Last, streetAddress, city, state, ZIPcode, phoneNumber, classify;
-                int bulan, hari, tahun;
-                //cout << "Input first name : ";
-                cin >> First;
-                //cout << "Input last name : ";
-                cin >> Last;
-                //cout << "Input street address : ";
-                cin >> streetAddress;
-                //cout << "Input city : ";
-                cin >> city;
-                //cout << "Input state : ";
-                cin >> state;
-                //cout << "Input ZIP Code : ";
-                cin >> ZIPcode;
-                //cout << "Input Phone Number : ";
-                cin >> phoneNumber;
-                //cout << "Input Classify : ";
-                cin >> classify;
-                //cout << "Input date of birth (mm/dd/yyyy) : ";
-                cin >> bulan >> hari >> tahun;
-                person.push_back(extPersonType(phoneNumber,classify,
-                streetAddress, city, state, ZIPcode, First, 
-                Last, bulan, hari, tahun)); 
-            }
-        }
-
-        void sortTheBook()
-        {
-            for (int i = 0; i < index; i++)
-            {
-                for (int j = i+1; j <= index; j++)
-                {
-                    if (person[j].getLastName() < person[i].getLastName())
-                    {
-                        extPersonType temp = person[i];
-                        person[i] = person[j];
-                        person[j] = temp;
-                    }
-                }
-            }
-        }
-
-        void printTheBook()
-        {
-            for (int i = 0; i < person.size(); i++)
-            {
-                cout << i << endl;
-                person[i].printAllInformation();
-            }
-        }
+        addressBookType (int ind);
+        void sortTheBook();//5eii
+        void findLastNameInBook(string belakan);//5ciii dan 5civ
+        void findNameInGivenMonth(int bulan);//5cv
+        void printTheNameBetweenTwoLastNames(string lastAwal, string lastAkhir);//5cvi
+        void yourRequest (string req);//5cvii
+        void printTheBook();
 };
 
 int main()
@@ -145,6 +87,26 @@ int main()
     addressBookType BukuFarrel(0);
     BukuFarrel.sortTheBook();
     BukuFarrel.printTheBook();
+    string namaBelakang;
+    cout << "ingin mencari info orang sesuai nama Belakangnya ? " << endl;
+    cin >> namaBelakang;
+    BukuFarrel.findLastNameInBook(namaBelakang);
+    cout << "Berikan Bulan : " << endl;
+    int bul;
+    cin >> bul;
+    BukuFarrel.findNameInGivenMonth(bul);
+    string last1, last2;
+    cin >> last1 >> last2;
+    BukuFarrel.printTheNameBetweenTwoLastNames(last1, last2);
+    int ax;
+    cout << "1.Family Member, 2. Friends, 3. Business" << endl;
+    cin >> ax;
+    string req;
+    if (ax == 1) req = "FamilyMember";
+    else if (ax == 2) req = "Friends";
+    else if (ax == 3) req = "Business";
+    BukuFarrel.yourRequest(req);
+
     return 0;
 }
 
@@ -333,6 +295,134 @@ void dateType::print() const
         cout << "November ";
     else if (dateType::month == 12)
         cout << "December ";
-
     cout << day << ", " << year << endl;
+}
+
+int dateType::getMonth()
+{
+    return dateType::month;
+}
+
+///extPersonType//////
+void extPersonType::printAllInformation()
+{
+    personType::print();
+    addressType::print();
+    cout << "Date of Birth \t: "; dateType::print();
+    cout << "Phone Number \t: " << phoneNumber << endl;
+    cout << "Classify \t: " << classify << endl;
+}
+
+string extPersonType::getPhoneNumber()
+{
+    return extPersonType::phoneNumber;
+}
+
+string extPersonType::getClasify()
+{
+    return extPersonType::classify;
+}
+
+//////addressBookType/////////////////
+addressBookType::addressBookType(int ind)
+{
+    int sz;
+    //cout << "Jumlah keluarga" << endl;
+    cin >> sz;
+    for (int i = 0; i < sz; i++)
+    {
+        string First, Last, streetAddress, city, state, ZIPcode, phoneNumber, classify;
+        int bulan, hari, tahun;
+        //cout << "Input first name : ";
+        cin >> First;
+        //cout << "Input last name : ";
+        cin >> Last;
+        //cout << "Input street address : ";
+        cin >> streetAddress;
+        //cout << "Input city : ";
+        cin >> city;
+        //cout << "Input state : ";
+        cin >> state;
+        //cout << "Input ZIP Code : ";
+        cin >> ZIPcode;
+        //cout << "Input Phone Number : ";
+        cin >> phoneNumber;
+        //cout << "Input Classify : ";
+        cin >> classify;
+        //cout << "Input date of birth (mm/dd/yyyy) : ";
+        cin >> bulan >> hari >> tahun;
+        person.push_back(extPersonType(phoneNumber,classify,
+        streetAddress, city, state, ZIPcode, First, 
+        Last, bulan, hari, tahun)); 
+    }
+    addressBookType::index = sz-1;
+}
+
+void addressBookType::sortTheBook()
+{
+    for (int i = 0; i < index; i++)
+    {
+        for (int j = i+1; j <= index; j++)
+        {
+            if (addressBookType::person[j].getLastName() < addressBookType::person[i].getLastName())
+            {
+                extPersonType temp = addressBookType::person[i];
+                addressBookType::person[i] = addressBookType::person[j];
+                addressBookType::person[j] = temp;
+            }
+        }
+    }
+}
+
+void addressBookType::printTheBook()
+{
+    for (int i = 0; i < addressBookType::person.size(); i++)
+    {
+        cout << i+1 << endl;
+        addressBookType::person[i].printAllInformation();
+    }
+}
+
+void addressBookType::findLastNameInBook(string belakan)
+{
+    vector <int> hasilIndex;
+    for (int i = 0; i <= addressBookType::index; i++)
+        if (belakan == addressBookType::person[i].getLastName())
+            hasilIndex.push_back(i);
+    for (int i = 0; i < hasilIndex.size(); i++)
+    {
+        //print  the address, phonenumber, date of birth
+        person[hasilIndex[i]].personType::print();
+        cout << "Street \t\t: " << person[hasilIndex[i]].getStreetAddress() << endl;
+        cout << "Phone Number \t: " << person[hasilIndex[i]].getPhoneNumber() << endl;
+        cout << "Date of Birth \t: "; person[hasilIndex[i]].dateType::print();
+    }
+}
+
+void addressBookType::findNameInGivenMonth(int bulan)
+{
+    vector <int> hasilIndex;
+    for (int i = 0; i <= addressBookType::index; i++)
+        if (bulan == addressBookType::person[i].dateType::getMonth())
+            hasilIndex.push_back(i);
+    for (int i = 0; i < hasilIndex.size(); i++)
+        person[hasilIndex[i]].personType::print();
+}
+
+void addressBookType::printTheNameBetweenTwoLastNames(string lastAwal, string lastAkhir)
+{
+    for (int i = 0; i <= addressBookType::index; i++)
+    {
+        if (person[i].getLastName() > lastAwal and person[i].getLastName() < lastAkhir)
+            person[i].personType::print();
+    }
+}
+
+void addressBookType::yourRequest(string req)
+{
+    for (int i = 0; i <= addressBookType::index; i++)
+    {
+        if (person[i].getClasify() == req)
+            person[i].personType::print();
+    }
 }
