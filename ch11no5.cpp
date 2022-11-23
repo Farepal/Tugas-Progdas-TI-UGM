@@ -96,7 +96,7 @@ int main()
         cout << "3. Find someone whose last name is between two last names inputted" << endl;
         cout << "4. Find some who is a Family Members, Friends, or Business Associates" << endl;
         cout << "5. Print All Information of the Book" << endl;
-        cout << "Input the things yoa are looking for : ";
+        cout << "Input the things you are looking for : ";
         cin >> testCase;
         if (testCase == 1)
         {
