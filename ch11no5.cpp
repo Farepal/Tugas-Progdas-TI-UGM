@@ -415,7 +415,7 @@ void addressBookType::findLastNameInBook(string belakan)
     {
         //print  the address, phonenumber, date of birth
         person[hasilIndex[i]].personType::print();
-        cout << "Street \t\t: " << person[hasilIndex[i]].getStreetAddress() << endl;
+        person[hasilIndex[i]].addressType::print();
         cout << "Phone Number \t: " << person[hasilIndex[i]].getPhoneNumber() << endl;
         cout << "Date of Birth \t: "; person[hasilIndex[i]].dateType::print();
     }
