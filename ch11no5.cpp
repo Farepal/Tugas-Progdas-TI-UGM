@@ -122,7 +122,7 @@ int main()
         {
             int ax;
             string req;
-            cout << "1.Family Member, 2. Friends, 3. Business (Input 1/2/3) : " << endl;
+            cout << "1.Family Member, 2. Friends, 3. Business (Input 1/2/3) : ";
             cin >> ax;
             if (ax == 1) req = "FamilyMember";
             else if (ax == 2) req = "Friends";
