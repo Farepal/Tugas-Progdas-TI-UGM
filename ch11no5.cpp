@@ -95,6 +95,7 @@ int main()
         cout << "2. Find Someone with the same birth month" << endl;
         cout << "3. Find someone whose last name is between two last names inputted" << endl;
         cout << "4. Find some who is a Family Members, Friends, or Business Associates" << endl;
+        cout << "5. Print All Information of the Book" << endl;
         cout << "Input the things yoa are looking for : ";
         cin >> testCase;
         if (testCase == 1)
@@ -128,6 +129,10 @@ int main()
             else if (ax == 2) req = "Friends";
             else if (ax == 3) req = "Business";
             BukuFarrel.yourRequest(req);
+        }
+        else if (testCase == 5)
+        {
+            BukuFarrel.printTheBook();
         }
         cout << "Do you want out (Input 0 to exit) : ";
         cin >> testCase;
