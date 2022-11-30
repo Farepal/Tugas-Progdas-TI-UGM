@@ -34,7 +34,7 @@ int main()
     //apakah ada file input.txt
     if (!FileInput.is_open())
     {
-        cout << "Tidak ada File input.txt atau mungkin salah nama" << endl;
+        cout << "Tidak ada File input.txt atau salah nama atau input.txt tidak satu folder dengan file cpp ini" << endl;
         return 0;
     }
 
