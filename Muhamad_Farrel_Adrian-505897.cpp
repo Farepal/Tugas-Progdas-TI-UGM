@@ -5,17 +5,20 @@
 #include <algorithm>
 
 using namespace std;
-//0-9 (48-57) A-Z(65-90) a-z(97-122) ASCII char to decimal
 string memperbaruiKata(string kataLama)
-{
+{//yang diperbarui kalo misal ada huruf besar maka dikecilin, kalo ada kata selain huruf dan angka maka dihapus
     string kataBaru = "";
     int sizeKataLama = kataLama.length(); //di string method length() dan size() itu sama
     for (int i = 0; i < sizeKataLama; i++)
     {
         char masingHuruf = kataLama[i];
-        if (int(masingHuruf) >= 65 and int(masingHuruf) <=90)
-            kataBaru += (char(int(masingHuruf) + 32));
-        else if (int(masingHuruf) >= 97 and int(masingHuruf) <= 122)
+        int DecimalOfMasingHuruf = int(masingHuruf);
+        //suatu char bisa berupa integer, coba googling ASCII
+        //contoh char di bawah ini, suatu angka bisa berupa string juga, ingat string adalah arraynya char
+        //0-9 (48-57) A-Z(65-90) a-z(97-122) ASCII char to decimal
+        if (DecimalOfMasingHuruf >= 65 and DecimalOfMasingHuruf <= 90)
+            kataBaru += (char(DecimalOfMasingHuruf + 32));
+        else if (DecimalOfMasingHuruf >= 97 and DecimalOfMasingHuruf <= 122 or DecimalOfMasingHuruf >= 48 and DecimalOfMasingHuruf <= 57)
             kataBaru += masingHuruf;
     }
     return kataBaru;
@@ -54,7 +57,7 @@ int main()
     for (int i = 0; i < masingKata.size(); i++)
     {
         vector <string>::iterator it = find(masingKata.begin(), masingKata.end(), masingKata[i]);
-        if (it - masingKata.begin() == i)
+        if (it - masingKata.begin() == i)//to_string itu method library string
             FileJson << "\t\"" << masingKata[i] << "\" : " << to_string(count
             (masingKata.begin(), masingKata.end(), masingKata[i])) << (i == masingKata.size() - 1 ? "\n" : ",\n");
     }
