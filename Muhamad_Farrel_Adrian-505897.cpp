@@ -21,14 +21,6 @@ string memperbaruiKata(string kataLama)
     return kataBaru;
 }
 
-string mengubahIntKeString(int num)
-{
-    string angkaBaru = "";
-    for (; num > 0; num /= 10)
-        angkaBaru += (char(num % 10 + 48));
-    return angkaBaru;
-}
-
 int main()
 {
     vector <string> masingKata;
@@ -63,7 +55,7 @@ int main()
     {
         vector <string>::iterator it = find(masingKata.begin(), masingKata.end(), masingKata[i]);
         if (it - masingKata.begin() == i)
-            FileJson << "\t\"" << masingKata[i] << "\" : " << mengubahIntKeString(count
+            FileJson << "\t\"" << masingKata[i] << "\" : " << to_string(count
             (masingKata.begin(), masingKata.end(), masingKata[i])) << (i == masingKata.size() - 1 ? "\n" : ",\n");
     }
 
