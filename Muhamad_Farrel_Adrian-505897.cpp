@@ -58,7 +58,7 @@ int main()
     {
         vector <string>::iterator it = find(masingKata.begin(), masingKata.end(), *i);//find itu function library algorith
         if (it-masingKata.begin() == i-masingKata.begin())//to_string itu method library string
-            FileJson << "\t\"" << *i << "\" : " << to_string(count(masingKata.begin(), masingKata.end(), *i)) 
+            FileJson << "\t\"" << *i << "\": " << to_string(count(masingKata.begin(), masingKata.end(), *i)) 
              << (i-masingKata.begin() == masingKata.size()-1 ? "\n" : ",\n");//count itu function library algorithm
     }
 
