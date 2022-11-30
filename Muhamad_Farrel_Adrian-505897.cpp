@@ -54,12 +54,12 @@ int main()
     FileJson.open("output.json");
     FileJson << "{\n";
 
-    for (int i = 0; i < masingKata.size(); i++)
+    for (auto i = masingKata.begin(); i != masingKata.end(); i++)
     {
-        vector <string>::iterator it = find(masingKata.begin(), masingKata.end(), masingKata[i]);
-        if (it - masingKata.begin() == i)//to_string itu method library string
-            FileJson << "\t\"" << masingKata[i] << "\" : " << to_string(count
-            (masingKata.begin(), masingKata.end(), masingKata[i])) << (i == masingKata.size() - 1 ? "\n" : ",\n");
+        vector <string>::iterator it = find(masingKata.begin(), masingKata.end(), *i);//find itu function library algorith
+        if (it-masingKata.begin() == i-masingKata.begin())//to_string itu method library string
+            FileJson << "\t\"" << *i << "\" : " << to_string(count(masingKata.begin(), masingKata.end(), *i)) 
+             << (i-masingKata.begin() == masingKata.size()-1 ? "\n" : ",\n");//count itu function library algorithm
     }
 
     FileJson << "}";
