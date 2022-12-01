@@ -50,19 +50,27 @@ int main()
     FileInput.close();//menutup file
 
     //pembuatan objek dengan class ofstream buat write file json
-    ofstream FileJson;
-    FileJson.open("output.json");
-    FileJson << "{\n";
+    string toJson = "";
+    toJson += "{\n";
 
     for (auto i = masingKata.begin(); i != masingKata.end(); i++)
     {
         vector <string>::iterator it = find(masingKata.begin(), masingKata.end(), *i);//find itu function library algorith
-        if (it-masingKata.begin() == i-masingKata.begin())//to_string itu method library string
-            FileJson << "\t\"" << *i << "\": " << to_string(count(masingKata.begin(), masingKata.end(), *i)) 
-             << (i-masingKata.begin() == masingKata.size()-1 ? "\n" : ",\n");//count itu function library algorithm
+        if (it-masingKata.begin() == i-masingKata.begin())
+        {
+            toJson += "\t\"";
+            toJson += *i;
+            toJson += "\": ";
+            toJson += to_string(count(masingKata.begin(), masingKata.end(), *i));
+            toJson += ",\n";
+        }
     }
-
-    FileJson << "}";
+    toJson.erase(toJson.length()-2, 1);
+    toJson += "}";
+    ofstream FileJson;
+    FileJson.open("output.json");
+    FileJson << toJson;
     FileJson.close();
+    cout << toJson << endl;
     return 0;
 }
