@@ -71,6 +71,5 @@ int main()
     FileJson.open("output.json");
     FileJson << toJson;
     FileJson.close();
-    cout << toJson << endl;
     return 0;
 }
