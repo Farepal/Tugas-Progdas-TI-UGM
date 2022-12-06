@@ -5,71 +5,76 @@
 #include <algorithm>
 
 using namespace std;
-string memperbaruiKata(string kataLama)
+string memperbaruikata(string katalama)
 {//yang diperbarui kalo misal ada huruf besar maka dikecilin, kalo ada kata selain huruf dan angka maka dihapus
-    string kataBaru = "";
-    int sizeKataLama = kataLama.length(); //di string method length() dan size() itu sama
-    for (int i = 0; i < sizeKataLama; i++)
+    string katabaru = "";
+    int sizekatalama = katalama.length(); //di string method length() dan size() itu sama
+    for (int i = 0; i < sizekatalama; i++)
     {
-        char masingHuruf = kataLama[i];
-        int DecimalOfMasingHuruf = int(masingHuruf);
-        //suatu char bisa berupa integer, coba googling ASCII
+        char masinghuruf = katalama[i];
+        int decimalofmasinghuruf = int(masinghuruf);
+        //suatu char bisa berupa integer, coba googling ascii
         //contoh char di bawah ini, suatu angka bisa berupa string juga, ingat string adalah arraynya char
-        //0-9 (48-57) A-Z(65-90) a-z(97-122) ASCII char to decimal
-        if (DecimalOfMasingHuruf >= 65 and DecimalOfMasingHuruf <= 90)
-            kataBaru += (char(DecimalOfMasingHuruf + 32));
-        else if (DecimalOfMasingHuruf >= 97 and DecimalOfMasingHuruf <= 122 or DecimalOfMasingHuruf >= 48 and DecimalOfMasingHuruf <= 57)
-            kataBaru += masingHuruf;
+        //0-9 (48-57) a-z(65-90) a-z(97-122) ascii char to decimal
+        if (decimalofmasinghuruf >= 65 and decimalofmasinghuruf <= 90)
+            katabaru += (char(decimalofmasinghuruf + 32));
+        else if (decimalofmasinghuruf >= 97 and decimalofmasinghuruf <= 122 or decimalofmasinghuruf >= 48 and decimalofmasinghuruf <= 57)
+            katabaru += masinghuruf;
     }
-    return kataBaru;
+    return katabaru;
 }
 
 int main()
 {
-    vector <string> masingKata;
+    vector <string> masingkata;
     //pembuatan object dengan class ifstream buat read file
-    ifstream FileInput;
-    FileInput.open("input.txt");
+    ifstream fileinput;
+    fileinput.open("input.txt");
 
     //apakah ada file input.txt
-    if (!FileInput.is_open())
+    if (!fileinput.is_open())
     {
-        cout << "Tidak ada File input.txt atau salah nama atau input.txt tidak satu folder dengan file cpp ini" << endl;
+        cout << "tidak ada file input.txt atau salah nama atau input.txt tidak satu folder dengan file cpp ini" << endl;
         return 0;
     }
 
-    while (!FileInput.eof())
+    while (!fileinput.eof())
     {
-        string kataDariInput;
-        FileInput >> kataDariInput;
-        kataDariInput = memperbaruiKata(kataDariInput);
-        if (kataDariInput.length() != 0)
-            masingKata.push_back(kataDariInput);
+        string katadariinput;
+        fileinput >> katadariinput;
+        katadariinput = memperbaruikata(katadariinput);
+        if (katadariinput.length() != 0)
+            masingkata.push_back(katadariinput);
     }
-
-    FileInput.close();//menutup file
+    fileinput.close();//menutup file
 
     //pembuatan objek dengan class ofstream buat write file json
-    string toJson = "";
-    toJson += "{\n";
-
-    for (auto i = masingKata.begin(); i != masingKata.end(); i++)
+    string tojson = "";
+    tojson += "{\n";
+    cout << "kata\t\t\t" << "jumlah\t" << "histogram" << endl;
+    for (auto i = masingkata.begin(); i != masingkata.end(); i++)
     {
-        vector <string>::iterator it = find(masingKata.begin(), masingKata.end(), *i);//find itu function library algorith
-        if (it-masingKata.begin() == i-masingKata.begin())
+        vector <string>::iterator it = find(masingkata.begin(), masingkata.end(), *i);//find itu function library algorith
+        if (it-masingkata.begin() == i-masingkata.begin())
         {
-            toJson += "\t\"";
-            toJson += *i;
-            toJson += "\": ";
-            toJson += to_string(count(masingKata.begin(), masingKata.end(), *i));
-            toJson += ",\n";
+            int jumlahberulang = count(masingkata.begin(), masingkata.end(), *i);
+            cout << *i << ((*i).length() > 7 ? "\t\t":"\t\t\t") << jumlahberulang << "\t";
+            for (int j = 0; j < jumlahberulang; j++)
+                cout << "#";
+            cout << endl;
+            tojson += "\t\"";
+            tojson += *i;
+            tojson += "\": ";
+            tojson += to_string(jumlahberulang);
+            tojson += ",\n";
         }
     }
-    toJson.erase(toJson.length()-2, 1);
-    toJson += "}";
-    ofstream FileJson;
-    FileJson.open("output.json");
-    FileJson << toJson;
-    FileJson.close();
+    tojson.erase(tojson.length()-2, 1);
+    tojson += "}";
+    ofstream filejson;
+    filejson.open("output.json");
+    filejson << tojson;
+    filejson.close();
+
     return 0;
 }
