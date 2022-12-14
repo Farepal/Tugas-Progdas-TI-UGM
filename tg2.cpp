@@ -2,25 +2,19 @@
 
 using namespace std;
 
-void deklarasi(int n, int angka[])
+void cekGanjil (int num[], int szAr)
 {
-    for (int i = 0; i < n; i++)
-        cin >> angka[i];
-}
-
-void tampilkanGanjil(int n, int angka[])
-{
-    for (int i = 0; i < n; i++)
-        if (angka[i] % 2 == 1)
-            cout << angka[i] << " ";
+    for (int i = 0; i < szAr; i++)
+    {
+        if (num[i] % 2 == 1)
+            cout << num[i] << " ";
+    }
+    cout << endl;
 }
 
 int main()
 {
-    int angka[9999];
-    int n;
-    cout << "Masukkan jumlah angka : ";
-    cin >> n;
-    deklarasi(n, angka);
-    tampilkanGanjil(n, angka);
+    int angka[] = {1,2,3,4,5,6,7,8,9,10};
+    cekGanjil(angka, sizeof angka / sizeof angka[0]);
+    return 0;
 }
