@@ -21,7 +21,7 @@ int main()
     int n;
     cout << "Masukkan jumlah angka : ";
     cin >> n;
-    cout << "Masukkan deretnya dipisahkan dengan spoasi : ";
+    cout << "Masukkan deretnya dipisahkan dengan spasi : ";
     deklarasi(n, angka);
     tampilkanGanjil(n, angka);
 }
